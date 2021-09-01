@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import esEs from 'antd/lib/locale/es_ES';
 import enUS from 'antd/lib/locale/en_US';
@@ -60,6 +66,12 @@ const LanguageProvider: React.FC<Props> = ({ children, name }) => {
     },
     [i18n, loadResource]
   );
+
+  // Weird workaround to react to language change on another micro front-end
+  useEffect(() => {
+    const lng = i18n.language;
+    changeLng(lng);
+  }, [i18n.language, changeLng]);
 
   const value: LanguageCTXValue = {
     locale,

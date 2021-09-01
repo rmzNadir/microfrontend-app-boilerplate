@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import styled from 'styled-components';
 import { Card, Typography, Select, ConfigProvider } from 'antd';
 import { useTranslation, I18nextProvider } from 'react-i18next';
@@ -43,7 +42,7 @@ export interface IMain {
 }
 
 // eslint-disable-next-line react/display-name
-const Main: React.FC<IMain> = memo(({ name }) => {
+const Main: React.FC<IMain> = ({ name }) => {
   const { locale, changeLng } = useLanguageCTX();
   const { t, i18n } = useTranslation();
 
@@ -66,7 +65,7 @@ const Main: React.FC<IMain> = memo(({ name }) => {
       </MainSpace>
     </ConfigProvider>
   );
-});
+};
 
 export interface IRoot {
   name: string;
@@ -76,13 +75,6 @@ const Root: React.FC<IRoot> = (props) => {
   const { i18n, name } = props;
 
   const appNamespace = name.split('/')[1];
-
-  // Load microfrontend's translations on mount
-  i18n.addResourceBundle(
-    i18n.language,
-    appNamespace,
-    require(`./Translations/${i18n.language}.json`)
-  );
 
   return (
     <I18nextProvider i18n={i18n} defaultNS={appNamespace}>
