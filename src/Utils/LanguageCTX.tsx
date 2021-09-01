@@ -43,8 +43,7 @@ const LanguageProvider: React.FC<Props> = ({ children, name }) => {
         require(`../Translations/${language}.json`)
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [i18n]
+    [i18n, appNamespace]
   );
 
   const changeLng = useCallback(
@@ -69,8 +68,7 @@ const LanguageProvider: React.FC<Props> = ({ children, name }) => {
 
   // Weird workaround to react to language change on another micro front-end
   useEffect(() => {
-    const lng = i18n.language;
-    changeLng(lng);
+    changeLng(i18n.language);
   }, [i18n.language, changeLng]);
 
   const value: LanguageCTXValue = {
