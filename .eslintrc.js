@@ -63,5 +63,6 @@ module.exports = {
         format: ['PascalCase'],
       },
     ],
+    'import/no-extraneous-dependencies': 'off',
   },
 };
